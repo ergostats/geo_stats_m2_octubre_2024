@@ -1,0 +1,177 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 1:  Introducción al modelado espacial"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+### `r rmarkdown::metadata$subtitle`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Matrices de vecindad
+
+Una matriz de vecindad es una matriz cuadrada que representa las relaciones espaciales entre diferentes unidades geográficas. Cada fila y cada columna de la matriz corresponden a una unidad espacial, como un municipio, una parcela de terreno o una celda en una cuadrícula. Los elementos de la matriz indican la relación o la proximidad entre las unidades.
+
+**Componentes Generales:**
+
+- **Filas y Columnas:** Cada fila y columna representan una unidad espacial. Por ejemplo, en un estudio de municipios, cada fila y columna corresponden a un municipio.
+- **Elementos de la Matriz:** Los elementos en la matriz representan la relación de vecindad entre las unidades. Dependiendo del tipo de matriz, esto puede ser una indicación binaria (vecino o no vecino) o una medida de proximidad.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Matrices de vecindad
+
+### Tipos Comunes de Matrices de Vecindad:
+
+- **Matriz Binaria:** Indica si una unidad es vecina de otra (0 o 1).
+- **Matriz de Distancia:** Utiliza distancias reales entre unidades como elementos de la matriz.
+- **Matriz de Contigüidad:** Basada en la contigüidad espacial entre unidades.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Autocorrelación Espacial
+
+La autocorrelación espacial se utiliza para describir en qué medida una variable está correlacionada consigo misma a través del espacio. La autocorrelación espacial positiva se produce cuando las observaciones con valores similares están más próximas entre sí (es decir, agrupadas). La autocorrelación espacial negativa se produce cuando las observaciones con valores distintos están más próximas entre sí (es decir, dispersas)
+
+![](https://www.researchgate.net/publication/345326470/figure/fig4/AS:960053502804001@1605906000766/Conceptual-models-of-spatial-autocorrelation-Positive-spatial-autocorrelation-a-is.png){fig-align="center" width="80%"}
+
+La autocorrelación espacial puede evaluarse utilizando índices que resumen el grado en que observaciones similares tienden a producirse cerca unas de otras en el área de estudio. Dos índices comunes que se utilizan para evaluar la autocorrelación espacial en datos areales son el **índice global de Moran I y la C de Geary.**
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Niveles de la Modelización Econométrica Espacial
+
+La modelización econométrica espacial es compleja y debe ser abordada desde múltiples niveles:
+
+- **Teoría de la Estimación:** Implica la consideración de clases de estimadores y sus propiedades.
+- **Construcción de Modelos Teóricos:** Basados en la teoría económica, se seleccionan variables y se determina la forma del modelo.
+- **Técnicas de Estimación:** Incluye la evaluación del ajuste, la calidad del modelo y la selección del mejor modelo.
+- **Interpretación de Modelos:** Analiza tanto el tamaño y la significancia de los coeficientes obtenidos como la traducción de los resultados en fenómenos y mecanismos discutidos en la teoría.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Consideraciones en la Modelización
+
+Al iniciar la modelización espacial econométrica, en la que necesariamente se dan **variables dependientes y exógenas**, hay que tener en cuenta las **fuentes de dependencia espacial y de heterogeneidad espacial**.
+
+- **Flujos Interregionales:** Como el comercio o la transferencia de conocimientos.
+- **Variables Omitidas:** Factores no observados, como diversos servicios de localización o agrupaciones, que afectan a una variable dependiente y correlacionada espacialmente.
+- **Errores de Medición:** O heterogeneidad no observada, resultado de límites administrativos que no son coherentes con la naturaleza de los procesos espaciales estudiados.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### ¿Qué pasa si se omite la dimensión espacial cuando los datos tienen una naturaleza espacial?
+
+- La homostacidad se da a nivel de grupos en los que tu puedes dividir la poblacion 
+
+- tienes que gaarntizas que en la rregresion lineal pase eso 
+
+
+
+
+
+
+- En principio, todos los datos que pueden ser geolocalizados tienen una naturaleza espacial, lo que implica la presencia de autocorrelación espacial (los valores en ubicaciones cercanas están correlacionados), la heterogeneidad espacial (las propiedades de los datos varían de un lugar a otro) y la heterocedasticidad (la variabilidad de los datos no es constante).
+- Cuando se omite la dimensión espacial, especialmente en la variable dependiente (la que se está tratando de predecir o explicar), se rompen las suposiciones del modelo de regresión lineal clásico, que asume independencia entre las observaciones.
+- Los errores en el modelo no tendrán una covarianza de cero (no estarán distribuidos al azar), ya que a menudo mostrarán un "error espacial", lo que significa que los errores en lugares cercanos estarán correlacionados.
+- En consecuencia  si se omite una variable espacial significativa, como el "retardo espacial" de la variable dependiente o de una variable explicativa, esto lleva a un error en la especificación del modelo (modelo incorrectamente especificado).
+- Además, si un modelo econométrico necesita incluir un retardo espacial de la variable dependiente pero se estima usando un método típico que no considera el espacio (como Mínimos Cuadrados Ordinarios, OLS), los estimadores (valores que se usan para hacer predicciones) serán sesgados (no representarán correctamente la realidad) y sobreestimados (los efectos parecerán más grandes de lo que son en realidad) e inconsistentes (no se acercarán al valor verdadero al aumentar el tamaño de la muestra).
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Métodos para Abordar la Dependencia Espacial
+
+En presencia de dependencia o heterogeneidad espacial, hay varias formas de abordar este problema. 
+
+- **Uso de Datos en Diferentes Escalas Espaciales:** Como datos puntuales o agregados o datos por división administrativa o en una cuadrícula.
+- **Incluir variables que aproximen fenómenos espaciales no observados:** Como variables dummy (cero-uno) o variables que se asemejan a la distribución espacial del error.
+- **Incluir Coordenadas Geográficas:** Como variables explicativas.
+- **Estimación en Grupos Homogéneos:** Modelos en "clubs" que muestran homogeneidad interna.
+- **Selección de Métodos de Estimación Espacial Adecuados:** Incluyendo la elección de matrices de pesos espaciales y la especificación del modelo.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Construcción de Modelos Econométricos Espaciales
+
+El proceso de construir un buen modelo econométrico requiere considerar varios aspectos:
+
+- **Clase del Modelo:** Según el propósito del estudio y la disponibilidad de datos.
+- **Método de Estimación:** Considerando variables espaciales.
+- **Especificación del Modelo:** Identificación de las variables probadas en la hipótesis y el control.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Clases Importantes de Modelos en Aplicaciones Económicas
+
+- **Modelos de Dependencia Espacial:** Usados como alternativas espaciales a los modelos de regresión lineal típicos.
+- **Modelos de Interacción Espacial:** Unidireccionales, que modelan el flujo de un fenómeno desde un núcleo a la periferia.
+- **Modelos de Convergencia:** Analizan cómo el cambio en la variable dependiente se relaciona con su estado inicial y otras variables exógenas.
+- **Modelos de Panel de Tiempo Transversal:** Donde las unidades estudiadas están geolocalizadas y hay relaciones espaciales entre ellas.
+- **Modelos Acumulativos Espaciales:** Basados en el concepto financiero de valor presente neto, evaluando variables monetarias y de estado en una ventana temporal expandida.
