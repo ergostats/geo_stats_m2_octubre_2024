@@ -1,0 +1,377 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 3:  Aplicaciones avanzadas de modelos espaciales"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+### `r rmarkdown::metadata$subtitle`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Introducción 
+
+.pull-left[
+Econometría se encarga:
+- Estudiar y analizar las **características** de una **variable económica** usando información de **otras variables** que puedan **explicar el comportamiento** de la primera. 
+]
+
+.pull-right[
+Objetivos del análisis econométrico: 
+- Formulación de un modelo que establezca una relación entre variables económicas.
+- Uso de datos muestrales sobre variables económicas para cuantificar la magnitud de la dependencia entre ellas. 
+- Validar las hipótesis planteadoas por la teoría económica respecto a esta relación.
+- Realizar un seguimiento y proyección de las variables estudiadas.
+]
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Tipos de datos 
+
+La naturaleza de los datos en economía puede ser muy diversa. Por lo que debemos diferenciar entre tres tipos de datos: 
+
+- **Datos de series de tiempo**: conjuto de observaciones sobre los valores de una variable en diferentes momentos temporales. Recopilación a intervalos regulares, diaria (precios acciones), semanal (cifras de oferta monetaria), mensual (Índice de Precios al Consumidor), trimestral (PBI) o anual.
+- **Datos transversales**: proporcionan información de individuos de una naturaleza similar en un mismo instante de tiempo (Ingreso anual de 500 pesonas para el año 2023).
+- **Datos de panel**: son un tipo de datos que combinan dimensiones temporales y transversales. Es decir, consisten en observaciones de múltiples unidades (como individuos, empresas, países, etc.) recogidas en varios momentos del tiempo.
+
+![](https://cdn-images-1.readmedium.com/v2/resize:fit:800/1*iM2wTi2ktWebR7Wl-eeD1A.png)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Almacenamiento de los datos de panel 
+
+- Suelen almacenarse de forma bidimensional con filas y columnas.
+- Siempre necesitamos una **columna para identificar a los individuos** y una **columna para documentar los momentos en que se recogieron los datos**.
+
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2sFHt2Im3k0nAMhEkfKguUaQ0g54a8j8ikg&s)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Ejemplos
+
+- Economía y finanzas: ¿Cómo afecta un cambio en la política monetaria a la economía de diferentes países a lo largo del tiempo? 
+- Sociología: ¿Cómo afectan las políticas gubernamentales a los indicadores de pobreza o desigualdad a lo largo del tiempo y entre diferentes regiones?
+- Ciencias de la salud: ¿Cómo se desarrolla una enfermedad en diferentes grupos de pacientes a lo largo del tiempo? 
+- Medio ambiente: ¿Cómo afectan las políticas de cambio climático a las emisiones de gases de efecto invernadero de diferentes países a lo largo del tiempo?
+- Educación: ¿Cómo afectan las políticas educativas a los resultados de los estudiantes en diferentes escuelas o regiones a lo largo del tiempo?
+- Marketing: ¿Cómo afectan las diferentes estrategias de marketing al comportamiento de compra de los clientes a lo largo del tiempo?
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## ¿Por qué utilizar datos de panel?
+
+Por la: 
+- **heterogeneidad no observada**: factores que pueden afectar la variable dependiente no se observan o no se incluyen en el modelo
+- **endogeneidad**: ocurre cuando una o más variables independientes en un modelo están correlacionadas con el término de error.
+
+Esto viola uno de los supuestos básicos de los modelos de regresión lineal, donde se asume que las variables independientes no están correlacionadas con los errores. Si este supuesto no se cumple, las estimaciones de los **coeficientes pueden ser sesgadas e inconsistentes**.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Heterogeneidad no observada y endogeneidad 
+
+Supongamos que queremos analizar la relación entre el consumo de café y el nivel de concentración. Un modelo de regresión lineal simple sería así:
+
+$$Nivel\ concentracion_{i} = \beta_0+\beta_1 Consumo\ café_i + \epsilon_i$$
+Donde:
+- $Nivel\ concentracion_{i}$ es la variable dependiente (VD). 
+- $\beta_0$ es el intercepto.
+- $\beta_1$ es el coeficiente de la regresión. 
+- $Consumo\ café_i$ es la variable independiente (VI). 
+- $\epsilon_i$ es el error. 
+
+Asumiendo que la VI y la VD están correlacionadas positivamente tendríamos que: 
+
+$$Nivel\ concentracion_{i} = \beta_0+\beta_1 Consumo\ café_i + \epsilon_i$$
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Heterogeneidad no observada y endogeneidad 
+Pero, ¿qué ocurre si hay otra variable que podría afectar a las VI existentes y no está incluida en el modelo? Por ejemplo, el cansancio tiene muchas posibilidades de afectar al consumo de café.
+
+$$Nivel\ concentracion_{i} = \beta_0+\beta_1 Consumo\ café_i + \epsilon_i$$
+
+Esto, a su vez, llevaría a un estimador sobreincrementado de la VD. Por lo tanto, el VD estimado está sesgado y conducirá a inferencias inexactas.
+
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Modelo general de datos de panel
+
+Un modelo general de regresión de datos de panel se escribe:
+
+$$Y_{it} = \alpha + \beta X_{it} + \epsilon _{it}$$
+$$i = 1,...,n$$
+$$t = 1,...,T$$
+
+Donde: 
+- $Y_{it}$ es la variable dependiente para la unidad $i$ en el tiempo $t$.
+- $X_{it} = (x_{1it},x_{2it},...,x_{kit})$ es el vector $k\times1$ formado por las variables explicativas para la unidad $i$ en el tiempo $t$.
+- $\beta$ es el vector $k\times1$ de coeficientes de las variables explicativas. 
+- $\alpha$ es el intercepto constante. 
+- $\epsilon _{it}$ es el término de error que captura las influencias no observadas que varían entre unidades y a lo largo del tiempo.
+
+La muestra total de las observaciones en el modelo viene por $n\times T$
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Términos del error
+
+**Error total**: Agrupa el efecto específico de la unidad como el error idiosincrático.
+
+$$u_{it}=u_i+\epsilon_{it}$$
+
+**Efectos específicos de la unidad** $u_i$: Son características no observadas que son **constantes en el tiempo** para cada unidad, pero que pueden variar entre diferentes unidades. (ex. Ubicación geográfica de un país).
+
+Para manejar estos efectos existen los enfoques de los **modelos fijos y aleatorios**.
+
+**Error idiosincrático** $\epsilon_{it}$: Son características no observadas que **cambia a lo largo del tiempo** para cada unidad y también varía entre diferentes unidades. (ex. Enfermedad temporal en ua persona)
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Términos del error
+
+### Ejemplo práctico:
+
+Imagina que estamos analizando los salarios de varias personas a lo largo del tiempo.
+
+- **Efectos específicos de la unidad**: Las personas pueden tener características constantes que influyen en sus salarios, como su nivel de educación o su lugar de nacimiento. Estos factores son diferentes entre personas, pero son **constantes a lo largo del tiempo** para cada persona.
+- **Error idiosincrático**: Además de esas características constantes, puede haber eventos aleatorios que influyan en el salario en un año particular, como una promoción inesperada o una crisis económica en un año dado. Estos eventos son **diferentes en el tiempo y entre las personas**.
+
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Tipos de regresión para datos de panel 
+
+Existen tres tipos principales de modelos de regresión para datos de panel, cada uno diseñado para manejar de manera diferente la heterogeneidad entre las unidades (individuos, empresas, países, etc.) y la estructura temporal de los datos.
+
+- Regresión agrupada
+- Modelo de efectos fijos 
+- Modelo de efectos aleatorios
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Regresión agrupada (o Pooled OLS)
+
+**Agrupa** todas las observaciones, independientemente de su unidad de observación o del período de tiempo y aplica una **regresión de mínimos cuadrados ordinarios (OLS)** como si los datos provinieran de una sola muestra combinada.
+
+$$y_{it}​=\alpha+\beta X_{it}​+\epsilon_{it}​$$
+
+Donde: 
+- $y_{it}$ es la variable dependiente para la unidad $i$ en el tiempo $t$.
+- $X_{it} = (x_{1it},x_{2it},...,x_{kit})$ es el vector $k\times1$ formado por las variables explicativas para la unidad $i$ en el tiempo $t$.
+- $\alpha$ es el intercepto. 
+- $\beta$ es el vector $k\times1$ de coeficientes de las variables explicativas. 
+- $\epsilon _{it}$ es el término de error que captura todas las influencias no observadas que afectan a $y_{it}$.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Características principales de la Regresión agrupada 
+
+- **Ignora las diferencias entre las unidades**: Se asume que todas las unidades de observación son homogéneas, es decir, que no hay diferencias específicas entre ellas que puedan afectar el resultado.
+- **Ignora los efectos del tiempo**: Tampoco se toma en cuenta que las observaciones pueden estar correlacionadas a lo largo del tiempo para una misma unidad.
+- **Supone homocedasticidad e independencia**: Se asume que el término de error $\epsilon_{it}$​ es homocedástico (varianza constante) e independiente tanto entre unidades como en el tiempo.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Ejemplo práctico:
+
+Supongamos que tienes datos sobre salarios de personas $i$ durante varios años $t$, y quieres estudiar cómo variables como la educación o la experiencia laboral afectan los salarios. Con **Pooled OLS**, simplemente agruparías todos los datos de todas las personas y los años, ignorando que los salarios para una persona en distintos años pueden estar correlacionados, o que algunas personas tienen características constantes que no cambian a lo largo del tiempo (como su inteligencia, o el sector económico en el que trabajan).
+
+El **Pooled OLS** supondría que todas las observaciones son independientes entre sí y aplicaría un solo modelo para todas las personas, sin tomar en cuenta diferencias individuales ni efectos temporales.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Modelo de efectos fijos 
+
+La idea de aplicar el modelo es **eliminar el sesgo** que puede surgir por las diferencias individuales no observadas que son constantes a lo largo del tiempo para cada unidad de observación, permitiendo enfocarse en los efectos de las variables explicativas que cambian con el tiempo.
+
+$$Y_{it} = \alpha_i + \beta X_{it} + \epsilon_{it}$$
+Donde: 
+- $Y_{it}$ es la variable dependiente para la unidad $i$ en el tiempo $t$.
+- $X_{it} = (x_{1it},x_{2it},...,x_{kit})$ es el vector $k\times1$ formado por las variables explicativas para la unidad $i$ en el tiempo $t$.
+- $\alpha_i$ es el intercepto específico para cada unidad $i$, que captura las características constantes no observadas de la unidad (**efecto fijo**).
+- $\beta$ es el vector $k\times1$ de coeficientes de las variables explicativas. 
+- $\epsilon _{it}$ es el término de error idiosincrático que varía con el tiempo y entre las unidades.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Características principales del modelo de efectos fijos
+
+- **Controla por heterogeneidad no observada**: Las unidades de observación tienen características que no cambian con el tiempo. Estas características no observadas pueden influir en la variable dependiente, y el modelo de efectos fijos las controla al "restarlas" de la ecuación.
+- **Los efectos específicos de la unidad están correlacionados con las variables explicativas**: Las características constantes no observadas de una unidad $\alpha_i$​ pueden estar relacionadas con $X_{it}$​. Por ejemplo, la cultura de una empresa puede influir tanto en el desempeño económico de la empresa como en la forma en que la empresa responde a cambios en políticas fiscales.
+- **Variabilidad dentro de las unidades**: El modelo examina cómo los cambios en $X_{it}$​​ afectan $y_{it}$​​ **dentro de una misma unidad a lo largo del tiempo**.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## ¿Cómo se controlan los efectos fijos?
+
+Para **controlar** es el efecto específico de la unidad (que es constante a lo largo del tiempo) $\alpha_i$, tomamos el promedio de las observaciones para cada unidad a lo largo del tiempo.
+
+El promedio para la unidad $i$ es:
+
+$$\bar{y}_i=\alpha_i+\beta\bar{x}_i+\bar{\epsilon}_i$$
+
+Ahora, restamos esta ecuación promedio de la ecuación original para cada observación:
+
+$$(y_{it}-\bar{y}_i)=\beta(x_i-\bar{x}_i)+(\epsilon_{it}-\bar{\epsilon}_i)$$
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Modelo de efectos aleatorios
+
+La idea del modelo es que las diferencias entre grupos o unidades se modelan como componentes aleatorios, en lugar de ser fijas y constantes.
+
+$$Y_{ij} = \beta_0 + \beta_1 X_{ij} + u_i +\epsilon_{ij}$$
+
+Donde: 
+
+- $Y_{it}$ es el valor de la variable dependiente para la unidad $i$ en el tiempo $t$
+- $\beta_0$ es el intercepto global.
+- $\beta_1$ es el coeficiente asociado a la variable independiente $X_{ij}$, común a todas las observaciones.
+- $u_j$ es el efecto aleatorio específico de la unidad.
+- $\epsilon_{ij}$ es el término de error aleatorio idiosincrásico. 
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Características principales del modelo de efectos aleatorios
+
+- **Suposición de independencia entre efectos individuales y regresores**: se supone que los efectos no observados (que capturan la heterogeneidad entre unidades) son **independientes de los regresores**. Esto significa que los errores individuales no están relacionados con las variables explicativas.
+- **Eficiencia**: Si la suposición de independencia entre $u_i$ y los regresores es correcta, el modelo de efectos aleatorios es **más eficiente** que el modelo de efectos fijos, porque incorpora tanto la variación entre unidades como la variación dentro de las unidades a lo largo del tiempo.
+
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
