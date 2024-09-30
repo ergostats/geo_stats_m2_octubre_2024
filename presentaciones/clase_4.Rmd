@@ -1,0 +1,419 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 4: "  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+### `r rmarkdown::metadata$subtitle`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Introducción 
+
+## Vecinos basados en contigüidad 
+
+- Se construyen asumiendo que los **vecinos de un área determinada** son **otras áreas** que comparten un **límite común**.
+- **Reina (Queen):** dos unidades espaciales se consideran vecinas si comparten una frontera, un borde o un vértice.
+- **Torre (Rook):** dos unidades espaciales se consideran vecinas solo si comparten una frontera completa, es decir, solo los bordes horizontales o verticales, pero no los vértices.
+
+![](https://www.researchgate.net/publication/349718331/figure/fig3/AS:1013770432311298@1618713114930/Rooks-case-contiguity-and-queens-case-contiguity-Source-Reference-60.png)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Vecinos basados en contigüidad 
+
+En R podemos usar la función `poly2nb` del paquete `spdep` para construir una **lista de vecinos** basados en una **distancia** entre **límites inferiores y superiores** específicos. 
+
+`poly2nb(pl, queen = TRUE)`
+- `pl` lista de polígonos.
+- `queen = TRUE` condición de contigüidad.
+
+```{r}
+# Importamos las librerías necesarias 
+library(spData)
+library(sf)
+library(spdep)
+library(ggplot2)
+
+# Cargamos el shapefile 
+mapa <- st_read(system.file("shapes/columbus.shp",
+               package = "spData"), quiet = TRUE)
+
+# Obtenemos una lista de vecinos a partir de los poligonos
+nb_con <- spdep::poly2nb(mapa, queen = TRUE)
+head(nb_con)
+
+# Visualizamos la lista de vecinos
+plot(st_geometry(mapa), border = "lightgray")
+plot.nb(nb_con, st_geometry(mapa), add = TRUE)
+
+# Visualizamos los vecinos en base al criterio QUEEN 
+id <- 20 # id del Area de Interes (AOI)
+mapa$vecinos <- "otros"
+mapa$vecinos[id] <- "AOI"
+mapa$vecinos[nb_con[[id]]] <- "vecinos"
+ggplot(mapa) + 
+	geom_sf(aes(fill = vecinos)) + 
+	theme_bw() +
+		scale_fill_manual(values = c("gray30", "white", "gray"))
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Vecinos basados en distancia 
+
+- Las vecindad también pueden definirse **considerando las zonas vecinas** que se encuentran a una **distancia determinada**.
+
+![](https://www.paulamoraga.com/book-spatial/book-spatial_files/figure-html/arealdata-neighborsdistance-1.png)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Vecinos basados en distancia 
+En R podemos usar la función `dnearneigh()` del paquete `spdep` para construir una **lista de vecinos**basados en una **distancia** entre **límites inferiores y superiores** específicos. 
+
+`dnearneigh(x, d1, d2)`
+- `x` matriz de coordenadas de puntos.
+- `d1` límite inferior (km si son coordenadas geográficas).
+- `d2` límite superior (km si son coordenadas geográficas).
+
+```{r}
+# Determinamos los vecinos más cercanos dentro de una distancia dada 
+nb_dis <- dnearneigh(x = st_centroid(mapa), d1 = 0, d2 = 0.4)
+
+# Visualizamos los vecinos
+plot(st_geometry(mapa), border = "lightgray")
+plot.nb(nb_dis, st_geometry(mapa), add = TRUE)
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Vecinos basados en $k$ vecinos más cercanos
+
+- También podemos considerar como **vecinos de una zona** sus $k$ **vecinos más cercanos** en función de la **distancia que los separa**.
+![](https://www.paulamoraga.com/book-spatial/book-spatial_files/figure-html/arealdata-neighborskneighbors-1.png)
+--- 
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+## Vecinos basados en $k$ vecinos más cercanos
+
+En R podemos usar la función `knearneigh()` del paquete `spdep` para obtener una **matriz** con los **índices de los puntos** que pertenecen al **conjunto de los k vecinos más próximos** entre sí.
+
+`knearneigh(x, k = 1)`
+- `x` matriz de coordenadas de puntos.
+- `k = 1` número de vecinos más cercanos con los que trabajar. 
+
+```{r}
+# Obtenemos los índices de los puntos que 
+# pertenecen al conjunto de los k vecinos más próximos entre sí
+ind <- knearneigh(st_centroid(mapa), k = 1)
+  
+# Obtenemos la lista de vecinos basados en estos indices 
+nb_kvec <- knn2nb(ind) # k number nearest neighbors
+
+# Visualizamos los vecinos 
+plot(st_geometry(mapa), border = "lightgray")
+plot.nb(nb_kvec, st_geometry(mapa), add = TRUE)
+
+```
+
+--- 
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Matrices de vecindad 
+
+- Una **matriz cuadrada** que representa las **relaciones espaciales** entre **diferentes unidades geográficas**. 
+- Cada **fila** y **columna** de la matriz corresponden a **una unidad espacial** (municipio, parcela de terreno) 
+- Los **elementos de la matriz** indican la **relación** o la **proximidad** entre las **unidades**.
+
+Además, puede ser necesario ajustar el número total de vecinos en cada área y usar una matriz estandarizada con entradas $w_{std, ij} = \frac{w_{ij}}{\sum_{j=1}^{n} w_{ij}}$.
+
+Esto asegura:
+
+1. Cada elemento de la matriz $𝑊{std}$ se encuentre entre 0 y 1.
+2. Que la suma de cada una de sus filas sea siempre 1.
+
+![](https://revistas.unal.edu.co/index.php/rcg/article/download/76919/version/61369/html/422727/v28n1a1f5.png)
+
+--- 
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Matrices de vecindad 
+
+La función `nb2listw()` del paquete `spdep` se puede utilizar para construir una **matriz de vecindad espacial** que contenga los **pesos espaciales correspondientes** a una **lista de vecinos**.
+
+`nb2listw(nb, style, zero.policy)`
+
+- **nb**: lista de vecinos.
+- **style**: indica el esquema de codificación elegido. Por ejemplo, `style = "B"` es la codificación binaria básica, y `style = "W"` es estandarizada por fila (1/número de vecinos).
+- **zero.policy**: se usa para tener en cuenta las regiones con 0 vecinos. Específicamente, `zero.policy = TRUE` permite que la lista de pesos contenga vectores de pesos de longitud cero, y `zero.policy = FALSE` detiene la función con un error si hay conjuntos de vecinos vacíos.
+
+```{r}
+## Obtenemos la matriz de pesos espaciales 
+
+# Para la matriz de vecinos por contigüidad 
+nbw_con <- spdep::nb2listw(nb_con, style = "W")
+nbw_con$weights[1:3]
+
+# Para la matriz de vecinos por distancia 
+nbw_dis <- spdep::nb2listw(nb_dis, style = "W", zero.policy = TRUE)
+
+# Para la matriz de k vecinos 
+nbw_kvec <- spdep::nb2listw(nb_kvec, style = "W")
+
+# Visualizamos la matriz de pesos espaciales 
+# para la matriz de vecinos por contigüidad 
+m1 <- listw2mat(nbw_con)
+lattice::levelplot(t(m1),
+                   scales = list(y = list(at = seq(10, nrow(m1), by = 10),
+                                          labels = seq(10, nrow(m1), by = 10))),
+                   main = "Matriz de Pesos Espaciales Basada en Contigüidad")
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Autocorrelación espacial 
+
+- Se utiliza para describir en qué medida una variable está correlacionada consigo misma a través del espacio. 
+- La autocorrelación espacial positiva se produce cuando las observaciones con valores similares están más próximas entre sí (es decir, agrupadas). 
+- La autocorrelación espacial negativa se produce cuando las observaciones con valores distintos están más próximas entre sí (es decir, dispersas).
+
+![](https://www.researchgate.net/publication/345326470/figure/fig4/AS:960053502804001@1605906000766/Conceptual-models-of-spatial-autocorrelation-Positive-spatial-autocorrelation-a-is.png)
+
+- La autocorrelación espacial puede evaluarse utilizando índices que resumen el grado en que observaciones similares tienden a producirse cerca unas de otras en el área de estudio. 
+- Dos índices comunes que se utilizan para evaluar la autocorrelación espacial en datos areales son el **índice global de Moran I y la C de Geary.**
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Índice global de Moran I 
+
+- Evalúa si un patrón espacial de datos es aleatorio o si muestra alguna dependencia espacial. 
+- Si los valores cercanos en el espacio son más similares entre sí de lo que se esperaría por azar.
+
+El Índice Global de Moran $I$ se calcula mediante la fórmula:
+
+$$I = \frac{n \sum_i \sum_j w_{ij} (Y_i - \bar{Y}) (Y_j - \bar{Y})}{\left( \sum_{i \neq j} w_{ij} \right) \sum_i (Y_i - \bar{Y})^2}$$
+
+Donde
+
+- $n$ es el número total de regiones.
+- $Y_i$ representa el valor observado de la variable de interés en la región $i$.
+- $\bar{Y}$ es la media de todos los valores.
+- Los pesos espaciales $w_{ij}$ indican la proximidad espacial entre las regiones $i$ y $j$, con $w_{ii} = 0$ y $i, j = 1, \ldots, n$. La definición de los pesos espaciales varía según la variable estudiada y el contexto específico.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Índice global de Moran I 
+
+### Interpretación del Índice de Moran I:
+
+- **Valor de Moran I cercano a +1**: Indica una **fuerte autocorrelación espacial positiva**, lo que significa que las ubicaciones con valores similares tienden a estar cerca unas de otras (agrupamiento espacial de valores similares).
+- **Valor de Moran I cercano a -1**: Indica una **autocorrelación espacial negativa**, lo que significa que las ubicaciones con valores diferentes tienden a estar cerca (dispersión espacial de valores disímiles).
+- **Valor de Moran I cercano a 0**: Indica que no hay autocorrelación espacial, es decir, los valores se distribuyen de manera aleatoria en el espacio.
+
+### Hipótesis del test de Moran I:
+
+- $H_0$: No hay autocorrelación espacial (los valores están distribuidos aleatoriamente en el espacio).
+- $H_1$: Hay autocorrelación espacial (los valores están agrupados o dispersos en el espacio).
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Índice global de Moran I 
+
+En R la función `moran.test()` del paquete `spdep` permite evaluar la autocorrelación espacial utilizando el índice $I$ de Moran.
+
+`moran.test(x, listw, alternative)`
+- **x**: vector numérico con los datos.
+- **listw**: lista con los pesos espaciales.
+- **alternative**: indica el tipo de hipótesis y puede configurarse como `greater` (por defecto), `less` o `two.sided` para representar diferentes hipótesis alternativas.
+
+```{r}
+## Matriz de pesos espaciales
+
+# Por contigüidad 
+nbw_con
+
+# Por distancia 
+nbw_dis
+
+# Para la matriz de k vecinos 
+nbw_kvec 
+
+## Calculo de indice de global de moran 
+
+# Contigüidad
+gmoran_con <- moran.test(mapa$CRIME, nbw_con, alternative = "greater")
+
+# Distancia 
+gmoran_dis <- moran.test(mapa$CRIME, nbw_dis, alternative = "greater")
+
+# K vecinos
+gmoran_kvec <- moran.test(mapa$CRIME, nbw_kvec,alternative = "greater")
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Índice C de Geary 
+
+- Se enfoca en las **diferencias absolutas** entre los valores de una variable en ubicaciones geográficas cercanas.
+- Mide la disimilitud entre los valores de las ubicaciones vecinas.
+
+$$ C(d) = \frac{(n-1) \sum_{i=1}^n \sum_{j=1}^n w_{ij}(x_i - x_j)^2}{2 \sum_{i=1}^n \sum_{j=1}^n w_{ij} \sum_{i=1}^n (x_i - \bar{x})^2} $$
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Índice C de Geary 
+### Interpretación del Índice C de Geary:
+
+El índice C de Geary tiene un rango de valores entre **0** y **2**:
+
+- **C < 1**: Indica **autocorrelación espacial positiva** (valores similares tienden a estar cerca entre sí).
+- **C = 1**: Indica que **no hay autocorrelación espacial** (los valores están distribuidos de manera aleatoria en el espacio).
+- **C > 1**: Indica **autocorrelación espacial negativa** (valores disímiles tienden a estar cerca entre sí).
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Diferencias entre el Índice de Moran I y el C de Geary:
+
+Aunque ambos índices miden la autocorrelación espacial, hay algunas diferencias clave:
+
+1. **Sensibilidad**:
+    - **Índice de Moran I**: Se enfoca más en las covarianzas globales y es más sensible a la **autocorrelación global** (tendencias generales en el patrón espacial).
+    - **C de Geary**: Es más sensible a las **variaciones locales** o a los valores atípicos, ya que se basa en la disimilitud de las diferencias locales.
+2. **Interpretación**:
+    - **Moran I**: Los valores van de -1 (autocorrelación negativa) a +1 (autocorrelación positiva).
+    - **C de Geary**: Va de 0 (fuerte autocorrelación positiva) a 2 (fuerte autocorrelación negativa), con un valor de 1 que indica no autocorrelación.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Índice C de Geary 
+
+En R la función `geary.test()` del paquete `spdep` permite evaluar la autocorrelación espacial utilizando el índice $C$ de Geary.
+
+`geary.test(x, listw, alternative)`
+- **x**: vector numérico con los datos.
+- **listw**: lista con los pesos espaciales.
+- **alternative**: indica el tipo de hipótesis y puede configurarse como `greater` (por defecto), `less` o `two.sided` para representar diferentes hipótesis alternativas.
+
+```{r}
+## Matriz de pesos espaciales
+
+# Por contigüidad 
+nbw_con
+
+# Por distancia -
+nbw_dis
+
+# Para la matriz de k vecinos 
+nbw_kvec 
+
+## Calculo de indice de global de moran 
+
+# Contigüidad
+geary_con <- geary.test(mapa$CRIME, nbw_con, alternative = "greater")
+
+# Distancia 
+geary_dis <- geary.test(mapa$CRIME, nbw_dis, alternative = "greater")
+
+# K vecinos
+geary_kvec <- geary.test(mapa$CRIME, nbw_kvec,alternative = "greater")
+```
+
