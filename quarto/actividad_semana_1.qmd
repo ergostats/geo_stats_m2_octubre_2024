@@ -1,0 +1,87 @@
+---
+title: "Actividad Semana 1"
+format: html
+editor: visual
+---
+
+## Objetivo
+
+El objetivo de esta actividad es que puedan comprendar y aplicar distintos métodos de estimación en el análisis de datos de panel. A través de este proceso, deberán explorar cómo los modelos de efectos fijos y aleatorios capturan las diferencias individuales y temporales en los datos, y cuándo cada modelo es más adecuado.
+
+## Data
+
+## Paso 1: Importar datos
+
+Comienza importando el conjunto de datos de panel proporcionado. Asegúrate de que los datos estén correctamente cargados en tu entorno de trabajo y listos para ser analizados.
+
+```{r}
+
+```
+
+### Paso 1.1: Verificar si el panel está balanceado
+
+Verifica si el panel está balanceado, es decir, si todas las unidades tienen observaciones en todos los periodos de tiempo. Si el panel está desbalanceado, deberás indicar las unidades o periodos faltantes.
+
+**Pregunta a resolver:** ¿El panel de datos es balanceado o desbalanceado? ¿Cómo puedes identificar las secciones faltantes si el panel está desbalanceado?
+
+```{r}
+
+```
+
+## Paso 2: Visualizar los datos de panel
+
+Crea visualizaciones que te ayuden a entender mejor la estructura de los datos de panel. Utiliza los gráficos de líneas para:
+
+-   Visualizar las variables de forma simultanea.
+-   Visualizar la heterogeneidad de la entidad.
+-   Visualizar la heterogeneidad temporal.
+
+**Pregunta a resolver:** ¿Qué patrones o tendencias observas en los datos a través del tiempo? ¿Existen diferencias notables entre las entidades?
+
+```{r}
+
+```
+
+## Paso 3: Estimación de métodos
+
+Aplica los diferentes métodos de estimación enseñados a los datos de panel, comenzando por los más simples hasta los más complejos.
+
+### Paso 3.1: Estimación con secciones cruzadas
+
+Realiza una estimación utilizando solo datos de secciones cruzadas, ignorando la estructura de panel temporal.
+
+**Pregunta a resolver:** ¿Qué resultados obtienes al aplicar una regresión simple de sección cruzada? ¿Cuáles son las limitaciones de este enfoque para datos de panel?
+
+```{r}
+
+```
+
+### Paso 3.2: Modelo de efectos fijos
+
+Estima un modelo de efectos fijos para tener en cuenta las diferencias individuales no observadas entre las entidades.
+
+**Pregunta a resolver:** ¿Cómo cambian los resultados cuando aplicas el modelo de efectos fijos? ¿Qué asume este modelo sobre las entidades del panel?
+
+```{r}
+
+```
+
+### Paso 3.3: Modelo de efectos aleatorios
+
+Estima un modelo de efectos aleatorios y compara sus resultados con el modelo de efectos fijos.
+
+**Pregunta a resolver:** ¿Cuándo es preferible utilizar un modelo de efectos aleatorios en lugar de uno de efectos fijos? ¿Cómo puedes determinar cuál de los dos es más adecuado para este conjunto de datos?
+
+```{r}
+
+```
+
+## Paso 4: Evaluar el mejor modelo
+
+A partir del diagrama mostrado en clase evalúa cuál de los modelos estimados en el paso anterior es el más adecuado para los datos, utilizando criterios como la prueba de Hausman, entre otros.
+
+**Pregunta a resolver:** Según los criterios evaluados, ¿qué modelo es el más apropiado para los datos de panel? ¿Por qué?
+
+```{r}
+
+```

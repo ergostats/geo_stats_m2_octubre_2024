@@ -1,0 +1,117 @@
+---
+title: "Actividades de clase"
+format: html
+editor: visual
+---
+
+## Clase 1/2: Dependencia y Heterogeneidad Espacial
+
+**¿Qué describe la dependencia espacial en un modelo econométrico?**
+
+A)  La relación entre dos variables independientes
+B)  La influencia de la localización geográfica en las observaciones
+C)  La correlación entre series temporales
+D)  La variación de los errores en el tiempo
+
+Respuesta correcta: B
+
+**¿Cómo se define la heterogeneidad espacial en un modelo de regresión?**
+
+A)  Variación no observada en el tiempo
+B)  Diferencias sistemáticas en los coeficientes de regresión entre distintas localizaciones
+C)  Efectos fijos en el tiempo
+D)  Falta de correlación espacial
+
+Respuesta correcta: B
+
+**¿Qué representa un retardo espacial en un modelo econométrico?**
+
+A)  La influencia del tiempo en la variable dependiente
+B)  La influencia de una localización geográfica en otra cercana
+C)  La variación de los coeficientes a lo largo del tiempo
+D)  La correlación entre las variables independientes
+
+Respuesta correcta: B
+
+**¿Cuál es uno de los impactos principales de la autocorrelación espacial en un modelo de regresión?**
+
+A)  Mejora la precisión de los estimadores
+B)  Puede causar sesgo en los coeficientes estimados
+C)  No afecta la significancia estadística
+D)  Reduce el error estándar de los estimadores
+
+Respuesta correcta: B
+
+## Clase 3: Datos de Panel y Modelos de Regresión
+
+**¿Qué caracteriza a los datos de panel?**
+
+A)  Observaciones sobre varias unidades en un solo punto en el tiempo
+B)  Observaciones repetidas sobre las mismas unidades a lo largo del tiempo
+C)  Datos que no incluyen variaciones temporales
+D)  Datos que solo cubren un único periodo
+
+Respuesta correcta: B
+
+**¿Qué asume un modelo de efectos fijos en los datos de panel?**
+
+A)  Que los efectos no observados varían aleatoriamente entre las unidades
+B)  Que los efectos no observados son constantes para cada unidad
+C)  Que no hay correlación entre las variables independientes y los efectos no observados
+D)  Que los efectos no observados no existen
+
+Respuesta correcta: B
+
+**¿Qué caracteriza a la endogeneidad en un modelo econométrico?**
+
+A)  La falta de correlación entre la variable dependiente y los errores
+B)  La correlación entre una variable independiente y los errores del modelo
+C)  La existencia de heterogeneidad no observada
+D)  La falta de datos suficientes para realizar una regresión Respuesta correcta: B
+
+**¿Cuál es la diferencia clave entre un modelo de efectos fijos y uno de efectos aleatorios?**
+
+A)  Los efectos fijos asumen variabilidad en las unidades, mientras que los efectos aleatorios suponen que los efectos no están correlacionados con las variables independientes
+B)  Los efectos aleatorios son más precisos en grandes muestras
+C)  Los efectos fijos son adecuados solo para datos de series de tiempo
+D)  Los efectos aleatorios capturan la heterogeneidad entre unidades mejor que los efectos fijos
+
+Respuesta correcta: A
+
+## Clase 4: Autocorrelación Espacial y Matrices de Vecindad
+
+**¿Qué representa una matriz de vecindad en un análisis espacial?**
+
+A)  La distancia entre puntos temporales
+B)  La relación de proximidad entre unidades espaciales
+C)  La distribución de errores en el tiempo
+D)  La correlación de las variables independientes
+
+Respuesta correcta: B
+
+**¿Qué mide el Índice Global de Moran en un conjunto de datos espaciales?**
+
+A)  La relación entre los coeficientes de regresión
+B)  La dispersión de los errores
+C)  El grado de autocorrelación espacial en los datos
+D)  La variación temporal entre las observaciones
+
+Respuesta correcta: C
+
+**¿Qué caracteriza al Índice C de Geary en el análisis de autocorrelación espacial?**
+
+A)  Es más sensible a los valores atípicos que el Índice de Moran
+B)  Mide la correlación temporal entre las unidades
+C)  Es una versión simplificada del Índice de Moran
+D)  Se aplica solo a datos de series de tiempo
+
+Respuesta correcta: A
+
+**¿Cómo influye la autocorrelación espacial en la interpretación de un modelo de regresión?**
+
+A)  Puede causar sesgo en las estimaciones si no se tiene en cuenta
+B)  Mejora la precisión de las estimaciones
+C)  No tiene ningún efecto en los resultados
+D)  Solo afecta a modelos de series de tiempo
+
+Respuesta correcta: A
