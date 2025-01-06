@@ -61,10 +61,10 @@ datos_uso <- espac_list |>
 
 # 2. Empleo
 
-datos_empleo <- read_sav(archivos[8]) |> 
-  as_tibble()
+# datos_empleo <- read_sav(archivos[8]) |> 
+#   as_tibble()
 
-map(datos_empleo, ~attributes(.x)$"label")
+# map(datos_empleo, ~attributes(.x)$"label")
 
 datos_empleo <- espac_list |>
   map(1) |> 
