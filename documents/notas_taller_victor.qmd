@@ -1,0 +1,118 @@
+---
+title: "Untitled"
+format: html
+server: shiny
+---
+
+```{r}
+
+library(sf)
+library(tidyverse)
+library(haven)
+library(spdep)
+```
+
+
+# Matriz de vecindad
+
+Partimos de la lectura de la `geodatabase` de la cartografía del INEC:
+
+
+```{r}
+
+st_layers("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/")
+
+zonas <- read_sf("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/", layer = "zon_a")
+
+```
+
+Ahora creamos la matriz de vecindad de las zonas censales:
+
+```{r}
+
+zonas <- zonas %>% filter(str_detect(zon,"^17"))
+
+matriz_vecindad <- spdep::poly2nb(zonas, queen = TRUE)
+
+matriz_persos <- spdep::nb2listw(matriz_vecindad, style = "B")
+
+```
+
+Tomamos la matriz de pesos y mostramos en un mapa la zona censal "170150192" y creamos una box de 1km x 1km al rededor de esta zona censal, ploteamos la zona censal en rojo y sus vecinos en celeste:
+
+```{r}
+
+posicion <- zonas$zon == "170150192"
+
+zona <- zonas[posicion,]
+
+vecinos <- zonas[unlist(matriz_vecindad[posicion]),]
+
+# box <- st_bbox(zona) %>% st_as_sfc() %>% st_buffer(1000)
+
+ggplot() +
+  geom_sf(data = zona, fill = "red") +
+  geom_sf(data = vecinos, fill = "lightblue") 
+  # geom_sf(data = box, fill = NA)
+```
+
+Matriz de vecindad al cuadrado:
+
+```{r}
+
+matriz_vecinos <- matriz_vecindad %>% spdep::nb2mat()
+
+# Producto cruz
+matriz_vecinos_cuadrado <- matriz_vecinos %*% matriz_vecinos
+
+cauad <- t(matriz_vecinos_cuadrado) %>% 
+  apply(MARGIN = 1,FUN = function(x)which(x > 0)) %>% 
+  map(unique)
+
+vecinos_2 <- cauad[posicion] %>% unlist()
+
+vecinos_2 <- zonas[vecinos_2,]
+
+
+ggplot() +
+  geom_sf(data = vecinos_2, fill = "lightgreen") +
+  geom_sf(data = vecinos, fill = "lightblue") +
+  geom_sf(data = zona, fill = "red") 
+
+```
+
+Ahora con la matriz al cubo a partir de la matriz al cuadrado:
+
+```{r}
+
+matriz_vecinos_cubo <- matriz_vecinos_cuadrado %*% matriz_vecinos
+
+cubo <- t(matriz_vecinos_cubo) %>% 
+  apply(MARGIN = 1,FUN = function(x)which(x > 0)) %>% 
+  map(unique)
+
+vecinos_3 <- cubo[posicion] %>% unlist()
+
+vecinos_3 <- zonas[vecinos_3,]
+
+ggplot() +
+  geom_sf(data = vecinos_3, fill = "lightgreen") +
+  geom_sf(data = vecinos_2, fill = "purple") +
+  geom_sf(data = vecinos, fill = "lightblue") +
+  geom_sf(data = zona, fill = "red") 
+
+```
+
+Leemos los datos del registro estadístico de empresas:
+
+```{r}
+datos <- read_sav("../data/SPSS_REEM_2022/EMPRESAS2022_periodo_2022.sav")
+
+datos %>% 
+  map(attributes) %>% 
+  map("label") %>% unlist %>% enframe %>% 
+  write.csv("variables.csv")
+
+```
+
+

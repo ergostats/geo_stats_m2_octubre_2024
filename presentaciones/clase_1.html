@@ -3,7 +3,7 @@
   <head>
     <title>Estadística y Econometría Espacial con R, Módulo II</title>
     <meta charset="utf-8" />
-    <meta name="date" content="2024-09-17" />
+    <meta name="date" content="2024-12-19" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link rel="stylesheet" href="tema_ergos.css" type="text/css" />
   </head>
@@ -27,67 +27,204 @@ padding-top: 150px
 class: top left
 
 
+### Ciencia Abierta y Reproducible con R
 
-## Ciencia Abierta y Reproducible con R
-
-### R y la Filosofía de la Ciencia Abierta y Reproducible
-
-.pull-left[
   - **R y el Código Abierto**:
     - R, desarrollado en 1993 por Ross Ihaka y Robert Gentleman, es un lenguaje de programación de código abierto enfocado en el análisis estadístico.
     - Promueve la transparencia y colaboración, permitiendo a los investigadores compartir y reproducir análisis fácilmente.
   - **Importancia de la Reproducibilidad**:
     - La reproducibilidad es esencial para validar resultados y avanzar en el conocimiento científico.
     - R facilita la documentación y distribución de código, fortaleciendo la integridad científica.
+
+.pull-left[
+ &gt; &lt;image width="280px" src="https://thermanuals.wordpress.com/wp-content/uploads/2014/12/rr.jpg"&gt;
+    
+]   
+
+.pull-right[
+&gt; Ihaka, R., &amp; Gentleman, R. (1996). *R: A Language for Data Analysis and Graphics*. **Journal of Computational and Graphical Statistics**, 5(3), 299-314.
+]
+
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Incorporando el Espacio en el Modelamiento Estadístico
+
+&lt;div class="container" style="position: relative; overflow: visible;"&gt;
+  &lt;img src="img/timeline_geo_stats.png" style="position: absolute; left:-100px; top: -30px; width: 125%; max-width: none; bottom:-60px"&gt;
+&lt;/div&gt;
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Incorporando el Espacio en el Modelamiento Estadístico
+
+
+
+.pull-left[
+
+&lt;img width="400px" src="https://static.cambridge.org/binary/version/id/urn:cambridge.org:id:binary:20170509071025108-0782:9781107707412:fig1_3.png?pub-status=live"&gt;]
+
+
+
+.pull-right[
+
+Áreas de Aplicación Importantes
+- **Planificación Urbana**: Análisis de distribución de recursos y servicios.
+- **Economía Regional**: Estudio de interdependencias entre regiones y distribución de shicks.
+- **Salud Pública**: Mapeo de enfermedades y recursos sanitarios.
+- **Agricultura y medio ambiente**: Análisis de uso de tierra, efectos del cambio climático, impacto sobre la flora y fauna.
+]
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+#  Fuentes bibliográficas
+
+.pull-left[
+Anselin, L. (1988). *Spatial Econometrics: Methods and Models*. **Kluwer Academic Publishers**.
+
+&lt;img width="215px" src="https://media.springernature.com/w158/springer-static/cover-hires/book/978-94-015-7799-1?as=webp"&gt;
+
+]
+
+.pull-right[
+LeSage, J., &amp; Pace, R. K. (2009). *Introduction to Spatial Econometrics*. **CRC Press**.
+
+&lt;img width="215px" src="https://images.tandf.co.uk/common/jackets/crclarge/978042913/9780429138089.jpg"&gt;
+
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+###  Fuentes bibliográficas
+
+.pull-left[
+Moraga, P. (2023). *Spatial Statistics for Data Science: Theory and Practice with R*. CRC Press. ISBN: 9781032204334.
+
+&lt;img width="225px" src="https://www.paulamoraga.com/book-spatial/img/bookcoverspatial.jpg"&gt;
 ]
 
 .pull-right[
 
-! Foto de Ihaca Gentleman
+Kopczewska, K. (2020). *Applied Spatial Statistics and Econometric Data Analysis*. Routledge. ISBN: 9780367422499.
+
+![](https://m.media-amazon.com/images/I/91Nya1YBkdL._AC_UF350,350_QL50_.jpg)
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Buscar ayuda en R 🤔  
+
+.pull-left[
+
+
+
+- **Abrir una ventana de ayuda**:
+```r
+  help.start()
+```
+
+
+- **Buscar información acerca de un tema específico**:
+```r
+  help.search("...")
+```
+
+
+- **Buscar ayuda sobre una función**:
+```r
+  help(...)
+  ?...
+```
+
+]
+
+.pull-right[
+
+
+- **Buscar viñetas disponibles**:
+```r
+  vignette()
+```
+
+
+- **Buscar una viñeta específica**:
+```r
+  vignette("...")
+```
+
+### Web:
+
+- [Stackoverflow](https://stackoverflow.com)
+- [Rpubs](https://rpubs.com)
+- [Mailing List](https://stat.ethz.ch/mailman/listinfo/r-help)
+- [Github](https://github.com)
+
+]
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 170px
+class: top left
+
+
+  ### Tecnologia y el análisis espacial
+  
+- Sistemas satelitales como Copernicus y los Sentinel nutren el análisis espacial con datos abundantes y de alta resolución.  
+- IA aplicada a geodatos (desde modelos de OpenAI hasta GPUs de NVIDIA) agiliza descubrimientos antes impensables.  
+- Herramientas reproducibles dejan de ser “opción” para ser estándar, garantizando resultados confiables y auditables.  
+
+.center[
+&lt;img width="500px" src="https://eos.com/wp-content/uploads/2020/11/layers-of-geospatial-analysis-of-land-cover.jpg.webp"&gt;
+
 ]
 
 
-- **Referencias**:
-  - Ihaka, R., &amp; Gentleman, R. (1996). *R: A Language for Data Analysis and Graphics*. **Journal of Computational and Graphical Statistics**, 5(3), 299-314.
 
 ---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 170px
+class: middle 
 
-**Diapositiva 2: Evolución de la Estadística hacia la Econometría Espacial**
 
-- **Título**: **Incorporando el Espacio en el Modelamiento Estadístico**
+.pull-left[
 
-- **Contenido**:
-  - **Línea de Tiempo de Avances Clave**:
-    - **1950s-1960s**: Fundamentos de la econometría clásica.
-    - **1970s**: Surgimiento de la econometría espacial.
-    - **1988**: Publicación de *Spatial Econometrics: Methods and Models* por Luc Anselin.
-    - **1990s-2000s**: Integración de SIG y datos geoespaciales en análisis económicos.
-    - **Actualidad**: Uso de Big Data y aprendizaje automático en contextos espaciales.
-  - **Áreas de Aplicación Importantes**:
-    - **Planificación Urbana**: Análisis de distribución de recursos y servicios.
-    - **Economía Regional**: Estudio de interdependencias entre regiones.
-    - **Salud Pública**: Mapeo de enfermedades y recursos sanitarios.
-  - **Casos Importantes**:
-    - **Análisis de Disparidades Regionales**: [Ejemplo de estudio](https://doi.org/10.1016/j.regsciurbeco.2018.03.007)
-    - **Modelamiento de Datos Geoespaciales**: Aplicaciones en agricultura y medio ambiente.
+&lt;img src="https://uopsych-r-bootcamp-2020.netlify.app/slides/images/tidyverse_packages.png" width="500px" style="margin-top: 100px;"&gt;
 
-- **Referencias**:
-  - Anselin, L. (1988). *Spatial Econometrics: Methods and Models*. **Kluwer Academic Publishers**.
-  - LeSage, J., &amp; Pace, R. K. (2009). *Introduction to Spatial Econometrics*. **CRC Press**.
 
----
+]
 
-**Diapositiva 3: Tecnología, Actualización Continua y Herramientas Reproducibles**
-
-- **Título**: **El Rol de la Tecnología y la Comunidad R en el Análisis Espacial**
-
-- **Contenido**:
-  - **Avances Tecnológicos**:
-    - La rápida evolución tecnológica aumenta la capacidad y eficiencia en el análisis de datos.
-    - Necesidad de actualización constante para mantenerse al día con nuevas metodologías y herramientas.
-  - **Planificación y Política Basada en Datos**:
-    - Importancia de utilizar herramientas reproducibles para asegurar decisiones informadas y eficaces.
-    - Garantizar la calidad y transparencia en el manejo de datos para políticas públicas.
+.pull-right[
   - **Ecosistema Tidyverse y RStudio**:
     - **Tidyverse**: Colección de paquetes de R para ciencia de datos que promueven una sintaxis coherente y funcional.
     - **RStudio**: Entorno de desarrollo integrado que facilita la programación en R y la gestión de proyectos reproducibles.
@@ -97,9 +234,61 @@ class: top left
   - **Recursos Comunitarios**:
     - [Página oficial de Tidyverse](https://www.tidyverse.org/)
     - [RStudio](https://posit.co/downloads/)
+]
+&gt; Integrarse y contribuir a la comunidad de R fortalece nuestras habilidades y la calidad de nuestro trabajo analítico.
 
-- **Mensaje Final**:
-  - Integrarse y contribuir a la comunidad de R fortalece nuestras habilidades y la calidad de nuestro trabajo analítico.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Conceptos claves del analisis estadístico de datos
+
+El análisis de datos debe seguir siempre el **principio de reproducibilidad**
+
+&lt;img src = "img/tidy_workflow.png"&gt;
+
+- Los datos vienen en una variedad de formatos y estructuras.
+- El proceso de comprensión y limpieza de los datos es un ciclo que poco a poco va mejorando la calidad de los resultados.
+- Nuestro objetivo final es la información, que se obtiene a través de la visualización y el modelamiento de los datos.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Flujo del analisis espacial
+
+El análisis de espacialimplica la implementación de  **herramientas y métodos de corte espacial (GIS):**
+
+- Para el análisis de datos espaciales, es necesario considerar la ubicación geográfica de los datos y su representación en los datos. 
+- Los modelos espaciales pueden ser utilizados para analizar la dependencia espacial y la heterogeneidad espacial en los datos. 
+- En el análisis espacial se parte del supuesto de que la presencia de los "vecinos" tiene incidencia en el comportamiento de las variables observados para un individuo o unidad de análisis.
+
+.center[
+**En el análisis espacial algunas de las suposiciones del modelo de regresión lineal clásico, como la independencia de las observaciones, se ven violadas.**
+
+Es por ello que debemos definir un flujo de análisis, evaluación, crítica y mejora de los modelos econométricos espaciales. 
+
+]
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+
+&lt;img src="img/diagrama_analisis.png" width="750px" style="margin-top: 70px;"&gt;
+
+
 
 
 ---
@@ -112,27 +301,18 @@ class: top left
 
 ## Conceptos claves del analisis espacial
 
-Tipos de objeto espacial
-- Puntos
-- Lineas 
-- Poligonos
+.center[
+&lt;img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHWp-ZJ02dlkNncaS3rVLNDPMjN-OwJI_flA&amp;s" width = 500px&gt;
+
+]
+
+- **Puntos:** Lugares, coordenadas geográficas, sin area ni longitud
+- **Lineas:** Carreteras, rios, fronteras
+- **Poligonos:** Terrenos, regiones, paises
 
 
 ---
 
-background-image: url(img/slide_nb.png)
-background-position: top left
-background-size: 140%
-padding-top: 150px
-class: top left
-
-## Conceptos claves del analisis eestadistico de datos
-
-Analisis de datos
-- Reproducibilidad
-- Limpieza de datos 
-- El flujo del modelamiento y comunicacion con datos
----
 
 background-image: url(img/slide_nb.png)
 background-position: top left
@@ -144,9 +324,19 @@ class: top left
 ## Niveles de la Modelización Econométrica Espacial
 
 La modelización econométrica espacial es compleja y debe ser abordada desde múltiples niveles:
+.pull-left[
 
+.center[
+&lt;img src = "img/niveles_analisis_espacial.png"&gt;
+]
+
+]
+
+.pull-right[
 - **Teoría de la Estimación:** Implica la consideración de clases de estimadores y sus propiedades.
 - **Construcción de Modelos Teóricos:** Basados en la teoría económica, se seleccionan variables y se determina la forma del modelo.
+
+]
 - **Técnicas de Estimación:** Incluye la evaluación del ajuste, la calidad del modelo y la selección del mejor modelo.
 - **Interpretación de Modelos:** Analiza tanto el tamaño y la significancia de los coeficientes obtenidos como la traducción de los resultados en fenómenos y mecanismos discutidos en la teoría.
 
@@ -161,9 +351,68 @@ class: top left
 
 Al iniciar la modelización espacial econométrica, en la que necesariamente se dan **variables dependientes y exógenas**, hay que tener en cuenta las **fuentes de dependencia espacial y de heterogeneidad espacial**.
 
-- **Flujos Interregionales:** Como el comercio o la transferencia de conocimientos.
-- **Variables Omitidas:** Factores no observados, como diversos servicios de localización o agrupaciones, que afectan a una variable dependiente y correlacionada espacialmente.
-- **Errores de Medición:** O heterogeneidad no observada, resultado de límites administrativos que no son coherentes con la naturaleza de los procesos espaciales estudiados.
+.pull-left[
+
+.center[&lt;p style = "font-size: x-large"&gt;&lt;img src = "https://cdn-icons-png.flaticon.com/128/1953/1953255.png" width = 50px&gt; &lt;/p&gt;
+### Dinamicas y flujos espaciales
+]
+
+
+- Como el comercio o la transferencia de conocimientos.
+- Conexiones entre regiones que inducen dependencia espacial.
+
+]
+
+.pull-right[
+
+.center[&lt;p style = "font-size: x-large"&gt;&lt;img src = "https://cdn-icons-png.flaticon.com/128/5726/5726532.png" width = 50px&gt; &lt;/p&gt;
+### Variables Omitidas
+]
+
+![](https://image-url-lupa.png)  
+
+- Factores no observados, como servicios o agrupaciones.
+- Pueden generar correlación espacial no modelada.
+
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Consideraciones en la Modelización
+
+Al iniciar la modelización espacial econométrica, en la que necesariamente se dan **variables dependientes y exógenas**, hay que tener en cuenta las **fuentes de dependencia espacial y de heterogeneidad espacial**.
+
+.pull-left[
+
+.center[&lt;p style = "font-size: x-large"&gt;&lt;img src = "https://cdn-icons-png.flaticon.com/128/124/124842.png" width = 50px&gt; &lt;/p&gt;
+###  Errores de Medición
+]
+
+- Resultado de límites administrativos que no corresponden a la realidad espacial.
+- Pueden inducir heterogeneidad no observada.
+
+
+]
+
+.pull-right[
+
+.center[&lt;p style = "font-size: x-large"&gt;&lt;img src = "https://cdn-icons-png.flaticon.com/128/12352/12352248.png" width = 50px&gt; &lt;/p&gt;
+### Operaciones Administrativas
+]
+
+
+- Diseños como las encuestas pueden inducir autocorrelación espacial.
+- Pueden sesgar los resultados desde el diseño inicial del estudio.
+
+
+
+]
+
 
 ---
 background-image: url(img/slide_nb.png)
@@ -174,13 +423,23 @@ class: top left
 
 ### ¿Qué pasa si se omite la dimensión espacial cuando los datos tienen una naturaleza espacial?
 
-- La homostacidad se da a nivel de grupos en los que tu puedes dividir la poblacion 
-- tienes que gaarntizas que en la rregresion lineal pase eso
-- En principio, todos los datos que pueden ser geolocalizados tienen una naturaleza espacial, lo que implica la presencia de autocorrelación espacial (los valores en ubicaciones cercanas están correlacionados), la heterogeneidad espacial (las propiedades de los datos varían de un lugar a otro) y la heterocedasticidad (la variabilidad de los datos no es constante).
-- Cuando se omite la dimensión espacial, especialmente en la variable dependiente (la que se está tratando de predecir o explicar), se rompen las suposiciones del modelo de regresión lineal clásico, que asume independencia entre las observaciones.
-- Los errores en el modelo no tendrán una covarianza de cero (no estarán distribuidos al azar), ya que a menudo mostrarán un "error espacial", lo que significa que los errores en lugares cercanos estarán correlacionados.
-- En consecuencia  si se omite una variable espacial significativa, como el "retardo espacial" de la variable dependiente o de una variable explicativa, esto lleva a un error en la especificación del modelo (modelo incorrectamente especificado).
-- Además, si un modelo econométrico necesita incluir un retardo espacial de la variable dependiente pero se estima usando un método típico que no considera el espacio (como Mínimos Cuadrados Ordinarios, OLS), los estimadores (valores que se usan para hacer predicciones) serán sesgados (no representarán correctamente la realidad) y sobreestimados (los efectos parecerán más grandes de lo que son en realidad) e inconsistentes (no se acercarán al valor verdadero al aumentar el tamaño de la muestra).
+
+.pull-left[
+#### Consecuencias respecto al modelo de regresión lineal clásico
+
+- La homocedasticidad se debe garantizar en la regresión lineal, dividiendo la población en grupos adecuados.
+- Cuando se omite la dimensión espacial, se rompe la suposición de independencia entre las observaciones.
+- Los errores del modelo no mostrarán una covarianza de cero, lo que indica correlación entre errores de lugares cercanos.
+]
+
+.pull-right[
+#### Otras consecuencias
+
+- Los datos geolocalizados tienen una naturaleza espacial, implicando autocorrelación, heterogeneidad y heterocedasticidad.
+- Si se omite una variable espacial significativa, como el retardo espacial, se produce un error de especificación en el modelo.
+- Al no considerar el retardo espacial en un modelo econométrico, los estimadores serán sesgados, sobreestimados e inconsistentes.
+]
+
 
 ---
 background-image: url(img/slide_nb.png)
@@ -193,13 +452,14 @@ class: top left
 
 En presencia de dependencia o heterogeneidad espacial, hay varias formas de abordar este problema. 
 
-- **Uso de Datos en Diferentes Escalas Espaciales:** Como datos puntuales o agregados o datos por división administrativa o en una cuadrícula.
-- **Incluir variables que aproximen fenómenos espaciales no observados:** Como variables dummy (cero-uno) o variables que se asemejan a la distribución espacial del error.
-- **Incluir Coordenadas Geográficas:** Como variables explicativas.
-- **Estimación en Grupos Homogéneos:** Modelos en "clubs" que muestran homogeneidad interna.
-- **Selección de Métodos de Estimación Espacial Adecuados:** Incluyendo la elección de matrices de pesos espaciales y la especificación del modelo.
+- 🌐🌐 **Uso de Datos en Diferentes Escalas Espaciales:** Como datos puntuales o agregados o datos por división administrativa o en una cuadrícula. 	
+- 0️⃣1️⃣ **Incluir variables que aproximen fenómenos espaciales no observados:** Como variables dummy (cero-uno) o variables que se asemejan a la distribución espacial del error.
+- 📚 📚 **Incluir Coordenadas Geográficas:** Como variables explicativas.
+- 👫 👫 **Estimación en Grupos Homogéneos:** Modelos en "clubs" que muestran homogeneidad interna.
+- 🌞 🌞 **Selección de Métodos de Estimación Espacial Adecuados:** Incluyendo la elección de matrices de pesos espaciales y la especificación del modelo.
 
-
+&gt; El objetivo final de un modelo de corte espacial es eliminar todo rastro de **autocorrelacion espacial** buscando que el termino de error tenga buenas propiedades. 
+---
 
 background-image: url(img/slide_nb.png)
 background-position: top left
@@ -207,15 +467,64 @@ background-size: 140%
 padding-top: 150px
 class: top left
 
-## Clases Importantes de Modelos en Aplicaciones Económicas
+## Modelos espaciales
 
-- **Modelos de Dependencia Espacial:** Usados como alternativas espaciales a los modelos de regresión lineal típicos.
-- **Modelos de Interacción Espacial:** Unidireccionales, que modelan el flujo de un fenómeno desde un núcleo a la periferia.
-- **Modelos de Convergencia:** Analizan cómo el cambio en la variable dependiente se relaciona con su estado inicial y otras variables exógenas.
-- **Modelos de Panel de Tiempo Transversal:** Donde las unidades estudiadas están geolocalizadas y hay relaciones espaciales entre ellas.
-- **Modelos Acumulativos Espaciales:** Basados en el concepto financiero de valor presente neto, evaluando variables monetarias y de estado en una ventana temporal expandida.:
 
-&gt; Poner las formulas muy sencillo
+.pull-left[
+&lt;img src = "img/ols.png" width = 300px&gt;
+]
+
+.pull-right[
+
+**Supuestos de OLS**  
+- Linealidad en la relación entre las variables explicativas y la dependiente.  
+- Esperanza del error igual a cero (no sesgo).  
+- Homocedasticidad de los residuos (varianza constante).  
+- Ausencia de autocorrelación serial y espacial en los residuos.  
+- Independencia entre los errores y las variables explicativas.
+]
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Modelos espaciales
+
+
+&lt;img src = "img/spatial_1.png" width = 700px&gt;
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Modelos espaciales
+
+
+.pull-left[
+&lt;img src = "img/actualidad.png" width = 300px&gt;
+]
+
+.pull-right[
+
+
+**Opciones ante la dependencia o heterogeneidad espacial**  
+- Ajustar la escala espacial de los datos (agregación, nivel administrativo, grid/raster).  
+- Incluir variables que representen fenómenos espaciales no observados (dummies, proxies).  
+- Incorporar coordenadas geográficas (modelos de expansión).  
+- Estimar modelos en grupos homogéneos (clubs).  
+- Seleccionar métodos espaciales adecuados (matriz de pesos, tipo de modelo, especificación óptima).
+]
+
+
+
 
 ---
 background-image: url(img/slide_nb.png)
@@ -223,37 +532,16 @@ background-position: top left
 background-size: 140%
 padding-top: 150px
 class: top left
-
-# Practica:
-
-- Como Bajarse la geodatabase
-- Un moran con una variable construida por nosostros
-
----
-background-image: url(img/slide_nb.png)
-background-position: top left
-background-size: 140%
-padding-top: 150px
-class: top left
-
-## Construcción de Modelos Econométricos Espaciales
-
-El proceso de construir un buen modelo econométrico requiere considerar varios aspectos:
-
-- **Clase del Modelo:** Según el propósito del estudio y la disponibilidad de datos.
-- **Método de Estimación:** Considerando variables espaciales.
-- **Especificación del Modelo:** Identificación de las variables probadas en la hipótesis y el control.
-
----
 
 ## Matrices de vecindad
 
 Una matriz de vecindad es una matriz cuadrada que representa las relaciones espaciales entre diferentes unidades geográficas. Cada fila y cada columna de la matriz corresponden a una unidad espacial, como un municipio, una parcela de terreno o una celda en una cuadrícula. Los elementos de la matriz indican la relación o la proximidad entre las unidades.
 
-**Componentes Generales:**
+.center[
+&lt;img src = "https://www.scielo.org.ar/img/revistas/reuge/v18n1/a02g03.png" width = 700px&gt;
 
-- **Filas y Columnas:** Cada fila y columna representan una unidad espacial. Por ejemplo, en un estudio de municipios, cada fila y columna corresponden a un municipio.
-- **Elementos de la Matriz:** Los elementos en la matriz representan la relación de vecindad entre las unidades. Dependiendo del tipo de matriz, esto puede ser una indicación binaria (vecino o no vecino) o una medida de proximidad.
+]
+
 
 ---
 background-image: url(img/slide_nb.png)
@@ -266,9 +554,10 @@ class: top left
 
 ### Tipos Comunes de Matrices de Vecindad:
 
-- **Matriz Binaria:** Indica si una unidad es vecina de otra (0 o 1).
 - **Matriz de Distancia:** Utiliza distancias reales entre unidades como elementos de la matriz.
 - **Matriz de Contigüidad:** Basada en la contigüidad espacial entre unidades.
+
+&lt;img src = "https://www.paulamoraga.com/book-spatial/book-spatial_files/figure-html/arealneighborhoodmatrix-2.png" width = 400px&gt;
 
 ---
 background-image: url(img/slide_nb.png)
@@ -282,9 +571,8 @@ class: top left
 
 La autocorrelación espacial se utiliza para describir en qué medida una variable está correlacionada consigo misma a través del espacio. La autocorrelación espacial positiva se produce cuando las observaciones con valores similares están más próximas entre sí (es decir, agrupadas). La autocorrelación espacial negativa se produce cuando las observaciones con valores distintos están más próximas entre sí (es decir, dispersas)
 
-![](https://www.researchgate.net/publication/345326470/figure/fig4/AS:960053502804001@1605906000766/Conceptual-models-of-spatial-autocorrelation-Positive-spatial-autocorrelation-a-is.png){fig-align="center" width="80%"}
+![](https://www.researchgate.net/publication/345326470/figure/fig4/AS:960053502804001@1605906000766/Conceptual-models-of-spatial-autocorrelation-Positive-spatial-autocorrelation-a-is.png)
 
-La autocorrelación espacial puede evaluarse utilizando índices que resumen el grado en que observaciones similares tienden a producirse cerca unas de otras en el área de estudio. Dos índices comunes que se utilizan para evaluar la autocorrelación espacial en datos areales son el **índice global de Moran I y la C de Geary.**
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
