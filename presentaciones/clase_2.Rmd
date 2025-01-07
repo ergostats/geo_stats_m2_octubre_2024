@@ -649,7 +649,14 @@ all_data <- excel_sheets("archivo.xlsx") %>%
 
 > Opciones como `range`, `skip`, `col_names` y `col_types` permiten manejar datos no limpios de manera eficiente.
 
+---
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: inverse, center
 
+![ESPAC](https://www.ecuadorencifras.gob.ec/wp-content/uploads/2013/10/Banner_ESPAC-01.png)
+# Encuesta de Superficie y Producción Agropecuaria Continua (ESPAC)
 
 ---
 background-image: url(img/slide_nb.png)
@@ -658,20 +665,57 @@ background-size: 140%
 padding-top: 150px
 class: top left
 
-###  Fuentes bibliográficas
+
+### Los Objetivos de la **ESPAC** 
 
 .pull-left[
-Moraga, P. (2023). *Spatial Statistics for Data Science: Theory and Practice with R*. CRC Press. ISBN: 9781032204334.
 
-<img width="225px" src="https://www.paulamoraga.com/book-spatial/img/bookcoverspatial.jpg">
+📊 **Generar información confiable y oportuna sobre:**
+- 🌱 Áreas plantadas, sembradas y cosechadas.  
+- 🥦 Producción y ventas de cultivos.  
+- 🐄 Ganado (vacuno, porcino, ovino y otras especies).  
+- 🐔 Aves de campo y de planteles avícolas.  
+- 👩‍🌾 Empleo en actividades agropecuarias.
 ]
 
 .pull-right[
 
-Kopczewska, K. (2020). *Applied Spatial Statistics and Econometric Data Analysis*. Routledge. ISBN: 9780367422499.
+✅ **Proporcionar información sobre:**
+- 🌾 Cultivos permanentes y transitorios (áreas sembradas, cosechadas, producción y ventas).  
+- 🐤 Existencia de aves criadas en campo y planteles avícolas.  
+- 🐖 Movimientos de ganado (vacuno, porcino, ovino y otras especies).  
+- 👩‍🌾 Personal agropecuario (ocasional, permanente y familiares sin remuneración).  
+- 🚜 Actividades agropecuarias realizadas en los terrenos.  
+- ☠️ Uso de plaguicidas, grado de exposición y afectaciones.  
+- 🌱 Tipos de fertilizantes utilizados en cultivos.
 
-![](https://m.media-amazon.com/images/I/91Nya1YBkdL._AC_UF350,350_QL50_.jpg)
 ]
+
+
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 180px
+class: top left
+
+
+.pull-left[
+
+📋 **Tipo de operación**: Encuesta.  
+🌍 **Cobertura geográfica**: Nacional y provincial (excepto Galápagos).  
+
+]
+
+.pull-right[
+📈 **Desagregación**: Nacional, regional, provincial, tipo de suelo, cultivos, ganado, prácticas agrícolas.  
+🔄 **Periodicidad**: Anual, continua desde 2002.  
+
+]
+
+![](https://scontent.fuio1-2.fna.fbcdn.net/v/t39.30808-6/242691649_4845849612105995_8730662397570944506_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=KZm2RoD_tbMQ7kNvgE2b431&_nc_oc=Adh_K_75K_7T4ZqSGvr32SkRVHEyY0GqhyGryE3-h1ox7eNooD0d4NGyXMTDQPjqU3GObg0ALQYDjFPk-17bV2kd&_nc_zt=23&_nc_ht=scontent.fuio1-2.fna&_nc_gid=AWKxL8vxfEDbHOQUEizASzX&oh=00_AYB4Ld0rOos9C7tkIrHKLp6fHBrHWS1a-lb9s4rmtBpkVg&oe=67835FAD)
 
 ---
 background-image: url(img/slide_nb.png)
