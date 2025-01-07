@@ -35,8 +35,6 @@ class: top left
 - Un nadador no se lanza al mar a la primera oportunidad, primero se prepara y se entrena. **¿Cómo podemos explorar nuestros datos antes de modelarlos?**
 
 
-
-
 *"El EDA puede ayudar a responder preguntas sobre desviaciones estándar, variables categóricas e intervalos de confianza. Una vez que el EDA está completo y se obtienen los insights, sus características se pueden usar para un análisis o modelado de datos más sofisticado, incluyendo el machine learning."*
 
 .pull-left[[--IBM](https://www.ibm.com/mx-es/topics/exploratory-data-analysis)]
@@ -48,8 +46,81 @@ class: top left
 
 ]
 
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 160px
+class: top left
+
+### **Instalación de `tidyverse`, `readxl` y `sf`**
+
+.pull-left[
+ **Desde CRAN (recomendado para usuarios estándar)**:
+   - Usar la versión estable más reciente:
 
 
+```r
+install.packages("tidyverse") # Conjunto de herramientas para ciencia de datos
+install.packages("readxl")    # Para leer archivos Excel
+install.packages("sf")        # Para análisis espacial
+```
+
+]
+
+
+.pull-right[
+ **Desde GitHub (para versiones de desarrollo)**:
+   - Ideal para probar características nuevas o reportar errores.
+   - Requiere el paquete `remotes`:
+
+
+```r
+install.packages("remotes")
+remotes::install_github("tidyverse/tidyverse") # tidyverse en desarrollo
+remotes::install_github("tidyverse/readxl")    # readxl en desarrollo
+remotes::install_github("r-spatial/sf")        # sf en desarrollo
+```
+
+]
+
+**¿Cuándo usar CRAN vs GitHub?**
+
+- **CRAN**: Estable y ampliamente probado. Úsalo para trabajo cotidiano o producción.
+- **GitHub**: Contiene características nuevas, pero podría tener más errores. Úsalo si necesitas una función específica no disponible en la versión CRAN.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 160px
+class: top left
+
+
+### **Diferencias entre `library()` y `require()`**
+- **`library()`**:
+  - Carga el paquete y genera un error si no está instalado.
+  - Recomendado para scripts y proyectos que necesitan asegurar la disponibilidad de paquetes.
+  - Ejemplo:
+
+
+```r
+library(tidyverse) # Carga el paquete tidyverse
+```
+
+- **`require()`**:
+  - Carga el paquete, pero devuelve un mensaje de advertencia (en lugar de error) si no está instalado.
+  - Útil en funciones condicionales o cuando el paquete es opcional.
+  - Ejemplo:
+
+
+```r
+if (require(sf)) {
+  print("El paquete sf está disponible.")
+}
+```
+**Nota**: Para evitar errores, siempre asegúrate de instalar los paquetes antes de cargarlos. 😊
 
 ---
 background-image: url(img/slide_nb.png)
@@ -343,7 +414,102 @@ background-size: 140%
 padding-top: 150px
 class: top left
 
-Aquí tienes la sección de manipulación de etiquetas y limpieza reescrita con la sintaxis del tidyverse, usando funciones como `mutate` para realizar las transformaciones:
+### **Exploración de una Geodatabase con `sf`**
+
+Durante este curso vamos a utilizar la **GeoDataBase** (`.gdb`) emplada por el *Instituto Nacional de Estadísticas y Censos (INEC)*, con esta puedes realizar diversas operaciones para explorar y trabajar con sus datos. 
+
+ **Listar las capas disponibles**:
+   ```r
+   library(sf)
+   st_layers("ruta/carpeta_geodatabase.gdb")
+   ```
+
+   - **Salida esperada**:
+     ```
+     Driver: OpenFileGDB 
+     Available layers:
+     1: provincias           (MultiPolygon)
+     2: carreteras           (LineString)
+     3: puntos_interes       (Point)
+     ```
+
+ **Leer una capa específica**:
+   ```r
+   data &lt;- st_read("ruta/carpeta_geodatabase.gdb", layer = "provincias")
+   ```
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 170px
+class: top left
+
+
+### **Exploración de una Geodatabase con `sf`**
+
+ **Obtener información básica de la capa**:
+
+
+```r
+st_geometry_type(data) # Tipo de geometría (e.g., MultiPolygon)
+st_crs(data)           # Sistema de referencia espacial (CRS)
+```
+
+
+ **Visualizar las geometrías con R-Base**:
+
+
+```r
+plot(st_geometry(data))
+```
+
+ **Guardar la capa en otro formato (e.g., GeoJSON)**:
+
+
+```r
+st_write(data, "provincias.geojson")
+```
+
+&gt; La librería `sf` es muy útil para trabajar con datos espaciales. Puedes explorar, visualizar y exportar datos geográficos de manera sencilla. 😊 
+La **geodatabase**  del INEC es una fuente de datos empleada en las distintas operaciones estaisticas del Ecuador. resulta muy útil para análisis espacial en R.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 170px
+class: top left
+
+
+### Otros archivos espaciales
+
+La función `st_read()` puede manejar múltiples formatos espaciales. Aquí tienes un resumen de los formatos más comunes, cuándo usarlos y ejemplos prácticos:
+
+| **Formato**     | **Cuándo usarlo**                                                                                  | **Ejemplo**                                                                                       |
+|------------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| **Shapefile (.shp)** | Datos espaciales vectoriales más usados en SIG. Compatible con casi todas las herramientas GIS. | `st_read("ruta/archivo.shp")`                                                                   |
+| **GeoJSON (.geojson)** | Intercambio de datos espaciales en la web. Ligero y basado en JSON.                           | `st_read("ruta/archivo.geojson")`                                                               |
+| **KML (.kml)**        | Archivos usados en Google Earth. Para mostrar datos espaciales en aplicaciones visuales.       | `st_read("ruta/archivo.kml")`                                                                   |
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 170px
+class: top left
+
+
+### Otros archivos espaciales
+
+| **Formato**     | **Cuándo usarlo**                                                                                  | **Ejemplo**                                                                                       |
+|------------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| **GPX (.gpx)**        | Datos de GPS. Se usa para trabajar con rutas o puntos de interés capturados por dispositivos GPS.| `st_read("ruta/archivo.gpx")`                                                                   |
+| **Raster (GeoTIFF, .tif)** | Archivos raster para análisis espacial continuo (como imágenes satelitales).                 | `st_read("ruta/archivo.tif")`                                                                   |
+| **CSV con coordenadas** | Datos tabulares con columnas de coordenadas (lat/lon). Convertidos a un formato espacial.      | `st_read("ruta/archivo.csv", options = c("X_POSSIBLE_NAMES=lon", "Y_POSSIBLE_NAMES=lat"))`       |
+| **Well-Known Text (WKT)** | Datos espaciales definidos mediante cadenas WKT. Para compartir geometrías de manera compacta.| `st_read("ruta/archivo.wkt")`                                                                   |
+
 
 ---
 background-image: url(img/slide_nb.png)
@@ -410,15 +576,90 @@ data &lt;- data %&gt;%
 ```
 
 ---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
 
 
+### **Funciones más relevantes de `readxl` en combinación con el tidyverse**
 
+El paquete **`readxl`** es ideal para leer archivos de Excel (`.xls` y `.xlsx`) directamente en R. Funciona de manera fluida con el tidyverse, permitiendo integrar datos desde Excel en flujos de análisis.
 
+| **Función**          | **Descripción**                                                                                      | **Ejemplo de uso**                                                                                      |
+|-----------------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| `read_excel()`       | Lee datos de un archivo Excel, soportando tanto `.xls` como `.xlsx`.                                  | `data &lt;- read_excel("archivo.xlsx")`                                                                    |
+| `excel_sheets()`     | Lista las hojas disponibles en un archivo Excel.                                                     | `hojas &lt;- excel_sheets("archivo.xlsx")`                                                                |
+| `read_xls()`         | Lee específicamente archivos en formato `.xls` (Excel 97-2003).                                       | `data &lt;- read_xls("archivo.xls")`                                                                      |
+| `read_xlsx()`        | Lee específicamente archivos en formato `.xlsx` (Excel 2007 o posterior).                             | `data &lt;- read_xlsx("archivo.xlsx")`                                                                    |
 
 
 ---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
 
-¿Necesitas ampliar algún punto o un ejemplo más detallado? 😊
+### Usos de las funciones de `readxl`
+
+Para leer un archivo Excel con varias hojas puedes listar las hojas y luego leer una específica.
+
+
+```r
+library(readxl)
+library(dplyr)
+
+# Listar hojas disponibles
+hojas &lt;- excel_sheets("archivo.xlsx")
+
+# Leer una hoja específica
+data &lt;- read_excel("archivo.xlsx", sheet = "Hoja1")
+```
+
+Tambien puedes integrar datos Excel directamente en un flujo *pipes* de `dplyr`:
+
+
+```r
+library(readxl)
+library(dplyr)
+data &lt;- read_excel("archivo.xlsx", sheet = 1) %&gt;%
+  filter(Categoria == "A") %&gt;%
+  summarize(Promedio = mean(Valor, na.rm = TRUE))
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+### Usos de las funciones de `readxl`
+
+Es útil especificar tipos de datos manualmente, en caso de que `read_excel()` no detecta correctamente los tipos de datos, usa `col_types`.
+
+
+```r
+data &lt;- read_excel("archivo.xlsx", col_types = c("text", "numeric", "date"))
+```
+
+Por ultimo, puedes combinar varias hojas de un archivo Excel en un solo data frame usando `map_df()` de `purrr` dentro del `tidyverse`.
+
+
+```r
+# Leer todas las hojas y combinarlas
+all_data &lt;- excel_sheets("archivo.xlsx") %&gt;%
+  set_names() %&gt;%
+  map_df(~ read_excel("archivo.xlsx", sheet = .x))
+```
+
+&gt; Opciones como `range`, `skip`, `col_names` y `col_types` permiten manejar datos no limpios de manera eficiente.
+
+
+
 ---
 background-image: url(img/slide_nb.png)
 background-position: top left
