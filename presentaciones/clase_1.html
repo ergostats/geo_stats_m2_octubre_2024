@@ -3,8 +3,8 @@
   <head>
     <title>Estadística y Econometría Espacial con R, Módulo II</title>
     <meta charset="utf-8" />
-    <meta name="date" content="2024-12-19" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <meta name="date" content="2025-01-07" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
     <link rel="stylesheet" href="tema_ergos.css" type="text/css" />
   </head>
   <body>
@@ -56,9 +56,10 @@ class: top left
 
 ### Incorporando el Espacio en el Modelamiento Estadístico
 
-&lt;div class="container" style="position: relative; overflow: visible;"&gt;
-  &lt;img src="img/timeline_geo_stats.png" style="position: absolute; left:-100px; top: -30px; width: 125%; max-width: none; bottom:-60px"&gt;
-&lt;/div&gt;
+&lt;!-- &lt;div class="container" style="position: relative; overflow: visible;"&gt; --&gt;
+  &lt;img src="img/timeline.png" style="position: absolute; width: 85%; max-width: none; top: 300px"&gt;
+  
+&lt;!-- &lt;/div&gt; --&gt;
 
 ---
 background-image: url(img/slide_nb.png)
@@ -199,8 +200,8 @@ class: top left
   ### Tecnologia y el análisis espacial
   
 - Sistemas satelitales como Copernicus y los Sentinel nutren el análisis espacial con datos abundantes y de alta resolución.  
-- IA aplicada a geodatos (desde modelos de OpenAI hasta GPUs de NVIDIA) agiliza descubrimientos antes impensables.  
-- Herramientas reproducibles dejan de ser “opción” para ser estándar, garantizando resultados confiables y auditables.  
+- Esta abundancia hace necesario un mayor poder computacional  (Ej. GPUs de NVIDIA) lo cual agiliza descubrimientos antes impensables.  
+- Entonces las herramientas reproducibles dejan de ser “opción” para ser estándar, garantizando resultados confiables y auditables.  
 
 .center[
 &lt;img width="500px" src="https://eos.com/wp-content/uploads/2020/11/layers-of-geospatial-analysis-of-land-cover.jpg.webp"&gt;
@@ -265,7 +266,7 @@ class: top left
 
 ## Flujo del analisis espacial
 
-El análisis de espacialimplica la implementación de  **herramientas y métodos de corte espacial (GIS):**
+El análisis de espacial implica la implementación de  **herramientas y métodos de corte espacial (GIS):**
 
 - Para el análisis de datos espaciales, es necesario considerar la ubicación geográfica de los datos y su representación en los datos. 
 - Los modelos espaciales pueden ser utilizados para analizar la dependencia espacial y la heterogeneidad espacial en los datos. 
@@ -306,6 +307,8 @@ class: top left
 
 ]
 
+** Ejemplos:**
+
 - **Puntos:** Lugares, coordenadas geográficas, sin area ni longitud
 - **Lineas:** Carreteras, rios, fronteras
 - **Poligonos:** Terrenos, regiones, paises
@@ -323,7 +326,7 @@ class: top left
 
 ## Niveles de la Modelización Econométrica Espacial
 
-La modelización econométrica espacial es compleja y debe ser abordada desde múltiples niveles:
+La modelización econométrica espacial es compleja y puede ser abordada desde múltiples niveles:
 .pull-left[
 
 .center[
@@ -459,6 +462,7 @@ En presencia de dependencia o heterogeneidad espacial, hay varias formas de abor
 - 🌞 🌞 **Selección de Métodos de Estimación Espacial Adecuados:** Incluyendo la elección de matrices de pesos espaciales y la especificación del modelo.
 
 &gt; El objetivo final de un modelo de corte espacial es eliminar todo rastro de **autocorrelacion espacial** buscando que el termino de error tenga buenas propiedades. 
+
 ---
 
 background-image: url(img/slide_nb.png)
@@ -523,6 +527,23 @@ class: top left
 - Seleccionar métodos espaciales adecuados (matriz de pesos, tipo de modelo, especificación óptima).
 ]
 
+---
+class: inverse center middle
+
+# Autocorrelación espacial
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Autocorrelación Espacial
+
+La autocorrelación espacial se utiliza para describir en qué medida una variable está correlacionada consigo misma a través del espacio. La autocorrelación espacial positiva se produce cuando las observaciones con valores similares están más próximas entre sí (es decir, agrupadas). La autocorrelación espacial negativa se produce cuando las observaciones con valores distintos están más próximas entre sí (es decir, dispersas)
+
+![](https://www.researchgate.net/publication/345326470/figure/fig4/AS:960053502804001@1605906000766/Conceptual-models-of-spatial-autocorrelation-Positive-spatial-autocorrelation-a-is.png)
 
 
 
@@ -559,19 +580,7 @@ class: top left
 
 &lt;img src = "https://www.paulamoraga.com/book-spatial/book-spatial_files/figure-html/arealneighborhoodmatrix-2.png" width = 400px&gt;
 
----
-background-image: url(img/slide_nb.png)
-background-position: top left
-background-size: 140%
-padding-top: 150px
-class: top left
 
-
-## Autocorrelación Espacial
-
-La autocorrelación espacial se utiliza para describir en qué medida una variable está correlacionada consigo misma a través del espacio. La autocorrelación espacial positiva se produce cuando las observaciones con valores similares están más próximas entre sí (es decir, agrupadas). La autocorrelación espacial negativa se produce cuando las observaciones con valores distintos están más próximas entre sí (es decir, dispersas)
-
-![](https://www.researchgate.net/publication/345326470/figure/fig4/AS:960053502804001@1605906000766/Conceptual-models-of-spatial-autocorrelation-Positive-spatial-autocorrelation-a-is.png)
 
 
     </textarea>
